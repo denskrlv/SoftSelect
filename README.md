@@ -1,10 +1,10 @@
 <p align="center">
-  <img src="images/thumbnail.svg" alt="PFSS pipeline: features are scored and normalised into probabilities, feature subsets are sampled from them, an ensemble of six classifiers is trained on each subset, and the results are aggregated into accuracy and feature selection frequency" width="100%" />
+  <img src="images/thumbnail.svg" alt="SoftSelect pipeline: features are scored and normalised into probabilities, feature subsets are sampled from them, an ensemble of six classifiers is trained on each subset, and the results are aggregated into accuracy and feature selection frequency" width="100%" />
   <br/>
-  <sub><b>Figure 1.</b> Overview of PFSS. <b>(a)</b> Feature relevance scores <i>s<sub>i</sub></i> are normalised into selection probabilities <i>p<sub>i</sub></i>. <b>(b)</b> <i>K</i> subsets of <i>k</i> features are sampled without replacement according to <i>p</i>. <b>(c)</b> An ensemble of six classifiers is trained on each subset. <b>(d)</b> Accuracy is reported as a function of <i>k</i>, and how often each feature is selected measures its stability. Values are illustrative.</sub>
+  <sub><b>Figure 1.</b> Overview of SoftSelect. <b>(a)</b> Feature relevance scores <i>s<sub>i</sub></i> are normalised into selection probabilities <i>p<sub>i</sub></i>. <b>(b)</b> <i>K</i> subsets of <i>k</i> features are sampled without replacement according to <i>p</i>. <b>(c)</b> An ensemble of six classifiers is trained on each subset. <b>(d)</b> Accuracy is reported as a function of <i>k</i>, and how often each feature is selected measures its stability. Values are illustrative.</sub>
 </p>
 
-<h1 align="center">PFSS-Ensemble-Models</h1>
+<h1 align="center">SoftSelect</h1>
 
 <p align="center">
   <b>Beyond Deterministic Selection: Probabilistic Feature Subset Selection for Medical Data</b>
@@ -20,7 +20,7 @@
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-green" alt="MIT License" /></a>
 </p>
 
-Most feature selection methods return one fixed subset of features. **PFSS** (Probabilistic Feature Subset Selection) instead turns feature-relevance scores into a probability distribution. It then samples many different subsets from that distribution and trains an ensemble of classifiers on them. Strong features show up often and weak ones occasionally, so the ensemble explores feature combinations while still favouring informative ones. How often each feature gets selected also measures how stable its importance is. We evaluate PFSS on four UCI medical datasets against two baselines: training on all features and uniform random sampling.
+Most feature selection methods return one fixed subset of features. **SoftSelect** instead makes the choice soft. It turns feature-relevance scores into a probability distribution. It then samples many different subsets from that distribution and trains an ensemble of classifiers on them. Strong features show up often and weak ones occasionally, so the ensemble explores feature combinations while still favouring informative ones. How often each feature gets selected also measures how stable its importance is. We evaluate SoftSelect on four UCI medical datasets against two baselines: training on all features and uniform random sampling.
 
 ## Overview
 
@@ -34,20 +34,20 @@ Most feature selection methods return one fixed subset of features. **PFSS** (Pr
 
 Best mean accuracy over 10 runs for each strategy, taking the best of the six classifiers. Figures are from Tables III–V of the [report](docs/report.pdf).
 
-| Dataset | Features | All features | Random subsets | PFSS | Best PFSS configuration |
+| Dataset | Features | All features | Random subsets | SoftSelect | Best SoftSelect configuration |
 |---|:---:|:---:|:---:|:---:|---|
 | Breast Cancer Wisconsin (Original) | 9 | 0.9561 | 0.9624 | 0.9649 | Random Forest · Linear Correlation · 8 features |
 | Diabetic Retinopathy Debrecen | 19 | 0.7514 | 0.7497 | 0.7552 | Logistic Regression · Shannon Entropy · 16 features |
 | Heart Failure Clinical Records | 12 | 0.8111 | 0.8111 | 0.8167 | Logistic Regression · Linear Correlation · 12 features |
 | Statlog (Heart) | 13 | 0.8395 | 0.8395 | 0.8593 | AdaBoost · Information Gain · 11 features |
 
-The gaps between strategies are small (at most 0.02, or one or two test samples), and they come from a single train/test split. PFSS also picks its best result from many more configurations than the baselines, so these figures do not show that PFSS is more accurate. Frequency analysis consistently ranks *ejection fraction* and *time* highest on Heart Failure, and *bare nuclei* and *normal nucleoli* highest on Breast Cancer.
+The gaps between strategies are small (at most 0.02, or one or two test samples), and they come from a single train/test split. SoftSelect also picks its best result from many more configurations than the baselines, so these figures do not show that SoftSelect is more accurate. Frequency analysis consistently ranks *ejection fraction* and *time* highest on Heart Failure, and *bare nuclei* and *normal nucleoli* highest on Breast Cancer.
 
 ## Quick start
 
 ```bash
-git clone https://github.com/denskrlv/PFSS-Ensemble-Models.git
-cd PFSS-Ensemble-Models
+git clone https://github.com/denskrlv/SoftSelect.git
+cd SoftSelect
 python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 jupyter notebook notebooks/main.ipynb
@@ -162,7 +162,7 @@ The cells at the end of the notebook read the summary files. They run paired t-t
 <br/>
 
 ```
-PFSS-Ensemble-Models/
+SoftSelect/
 ├── notebooks/
 │   └── main.ipynb                # Full study: experiments, t-tests, plots
 ├── src/
@@ -184,12 +184,12 @@ PFSS-Ensemble-Models/
 ## Citation
 
 ```bibtex
-@misc{ska2025pfss,
+@misc{ska2025softselect,
   author       = {Soumen Sinha and Denis Krylov and Alexandru Grigore},
   title        = {Beyond Deterministic Selection: A Probabilistic Approach for Feature Subset Selection in Medical Data},
   year         = {2025},
   institution  = {Delft University of Technology},
-  howpublished = {\url{https://github.com/denskrlv/PFSS-Ensemble-Models}}
+  howpublished = {\url{https://github.com/denskrlv/SoftSelect}}
 }
 ```
 

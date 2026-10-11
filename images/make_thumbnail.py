@@ -1,4 +1,4 @@
-"""Generate images/thumbnail.svg, the README figure illustrating the PFSS pipeline.
+"""Generate images/thumbnail.svg, the README figure illustrating the SoftSelect pipeline.
 
 Run from the repository root:  python images/make_thumbnail.py
 """
@@ -175,7 +175,7 @@ def aggregation_panel(px):
 def build():
     parts = [
         f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" width="{W}" height="{H}" '
-        f'font-family="{FONT}" role="img" aria-label="Figure 1: overview of PFSS. (a) feature scores are '
+        f'font-family="{FONT}" role="img" aria-label="Figure 1: overview of SoftSelect. (a) feature scores are '
         f'normalised into selection probabilities; (b) feature subsets are sampled from them; (c) an ensemble '
         f'of six classifiers is trained on each subset; (d) accuracy versus subset size and feature selection '
         f'frequency are reported">',
