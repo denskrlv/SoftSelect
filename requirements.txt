@@ -1,5 +1,8 @@
-scikit-learn
+jupyter
+matplotlib
 numpy
 pandas
-ucimlrepo
+scikit-learn
+scipy
 tqdm
+ucimlrepo
